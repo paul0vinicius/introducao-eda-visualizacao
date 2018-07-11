@@ -1,0 +1,71 @@
+---
+title: "Introdução à R"
+author: "Paulo Vinícius Soares"
+date: "10 de julho de 2018"
+output: 
+  html_document:
+        toc: true
+        toc_float: true
+        toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Noções gerais sobre R
+
+- É _case sensitive_.
+
+- Tem uma biblioteca _base_ que serve para operações simples com vetores, matrizes e _dataframes_.
+
+- Tem inúmeras bibliotecas para fazer operações mais complexas e efetuar análises utilizando conceitos de estatística, reamostragem, _machine learning_ e afins.
+
+# Conceitos básicos
+
+Como o objetivo não é foco em sintaxe, vamos pegar apenas os principais conceitos.
+
+## _Import_ de bibliotecas
+
+Como citado acima, o R possui inúmeras bibliotecas, das quais vamos utilizar o _tidyverse_ por abranger tudo o que precisamos. Para isso, basta fazer:
+
+```{r}
+# Tidyverse is an opinionated collection of R packages designed for data science. All packages share a underlying design philosophy, grammar and data structures.
+
+# Includes: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr and forcats
+
+#install.packages("tidyverse")
+#library(readr)
+#library(dplyr)
+#library(ggplot2)
+library(tidyverse)
+```
+
+## Importando o _dataset_
+
+```{r}
+# Usando a biblioteca readr
+series_imdb <- read_csv("../database/series_from_imdb.csv")
+```
+
+## Usando o _pipe_
+
+É similar ao _pipe_ do _bash_, para quem já conhece. Quem não conhece, é simples, basicamente tudo o que está ao lado esquerdo do pipe é usado como entrada para alimentar a função do lado direito.
+
+```{r}
+# Visualizando o dataset que possui 3326 linhas e 18 colunas/variáveis
+series_imdb %>% 
+  glimpse()
+```
+
+## Criando o seu projeto e iniciando sua análise
+
+Agora que você já sabe o básico da sintaxe de r, vamos criar seu projeto.
+
+- Clique em File > New Project > New Directory > Empty Project
+
+- Como nome da pasta coloque seuNomeESobrenome usando _CamelCase_.
+
+- Selecione como subpasta de `/introducao-eda-visualizacao/analises` e _create_.
+
+- Uma nova janela irá se abrir, mas não se preocupe, para abrir esse arquivo novamente basta utilizar `CTRL + O` e pesquisar esse arquivo na pasta de _instrucoes_.
