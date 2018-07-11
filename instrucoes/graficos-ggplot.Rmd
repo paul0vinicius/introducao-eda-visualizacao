@@ -1,0 +1,62 @@
+---
+title: "Construindo gráficos com ggplot2"
+author: "Paulo Vinícius Soares"
+date: "11 de julho de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Vamos importar as nossas bibliotecas e nosso _dataset_.
+```{r}
+library(tidyverse)
+series_imdb <- read_csv("../database/series_from_imdb.csv")
+```
+
+# Introdução
+
+Serão abordados três gráficos: _boxplot_, gráfico de linhas e o gráfico de barras (No meu exemplo de análise vocês podem encontrar um _scatterplot_ também).
+
+# Boxplot
+O _boxplot_ é utilizado para representar a distribuição dos dados, de forma que temos melhor noção de mediana, máximos, mínimos e podemos detectar _outliers_. Podemos verificar como se comportam as notas de Black Mirror, por exemplo:
+
+```{r}
+series_imdb %>%
+  filter(series_name %in% "Black Mirror") %>%
+  ggplot(aes(x=series_name, y=UserRating)) + geom_boxplot(aes(color=series_name), show.legend=FALSE)
+```
+
+# Gráfico de linhas
+O gráfico de linhas é utilizado para representar a evolução do dado com base em uma linha do tempo ou baseado em alguma categoria. Por exemplo, podemos verificar as notas de Black Mirror ao longo do tempo. Elas caem, elas aumentam, elas se mantêm constantes?
+```{r}
+series_imdb %>%
+  filter(series_name %in% "Black Mirror") %>%
+  ggplot(aes(x=series_ep, y=UserRating)) + geom_line()
+```
+
+# Gráfico de barras
+O gráfico de barras é utilizado para representar _ranking_ com base em dados absolutos, geralmente. Vamos comparar a nota média entre algumas séries e ver qual a melhor avaliada.
+
+```{r}
+series_avaliadas <- c("Black Mirror", "Flash", "Arrow", "Game of Thrones")
+
+series_imdb %>%
+  filter(series_name %in% series_avaliadas) %>%
+  group_by(series_name) %>%
+  summarise(media_serie = mean(UserRating)) %>%
+  ggplot(aes(x=series_name, y=media_serie)) + geom_bar(stat="identity", aes(fill=series_name))
+```
+
+Você também pode ordenar os gráficos usando a função `reorder()` no parâmetro x do ggplot:
+```{r}
+# Usando - você ordena de forma decrescente
+series_imdb %>%
+  filter(series_name %in% series_avaliadas) %>%
+  group_by(series_name) %>%
+  summarise(media_serie = mean(UserRating)) %>%
+  ggplot(aes(x=reorder(series_name, -media_serie), y=media_serie)) + geom_bar(stat="identity", aes(fill=series_name))
+```
+
+Para mais informações, você pode acessar os links do [R Graph Gallery](https://www.r-graph-gallery.com/).
