@@ -14,7 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Noções gerais sobre R
-
 - É _case sensitive_.
 
 - Tem uma biblioteca _base_ que serve para operações simples com vetores, matrizes e _dataframes_.
@@ -22,11 +21,9 @@ knitr::opts_chunk$set(echo = TRUE)
 - Tem inúmeras bibliotecas para fazer operações mais complexas e efetuar análises utilizando conceitos de estatística, reamostragem, _machine learning_ e afins.
 
 # Conceitos básicos
-
 Como o objetivo não é foco em sintaxe, vamos pegar apenas os principais conceitos.
 
 ## _Import_ de bibliotecas
-
 Como citado acima, o R possui inúmeras bibliotecas, das quais vamos utilizar o _tidyverse_ por abranger tudo o que precisamos. Para isso, basta fazer:
 
 ```{r}
@@ -42,14 +39,12 @@ library(tidyverse)
 ```
 
 ## Importando o _dataset_
-
 ```{r}
 # Usando a biblioteca readr
 series_imdb <- read_csv("../database/series_from_imdb.csv")
 ```
 
 ## Usando o _pipe_
-
 É similar ao _pipe_ do _bash_, para quem já conhece. Quem não conhece, é simples, basicamente tudo o que está ao lado esquerdo do pipe é usado como entrada para alimentar a função do lado direito.
 
 ```{r}
@@ -57,6 +52,14 @@ series_imdb <- read_csv("../database/series_from_imdb.csv")
 series_imdb %>% 
   glimpse()
 ```
+
+## Criando vetores
+Para criar vetores e _dataframes_ a sintaxe de r é a seguinte:
+```{r}
+vetor_int <- c(1,2,3)
+vetor_str <- c("a","b","c")
+```
+Vetores são objetos atômicos que só podem ser do mesmo tipo.
 
 ## Criando o seu projeto e iniciando sua análise
 
@@ -69,3 +72,5 @@ Agora que você já sabe o básico da sintaxe de r, vamos criar seu projeto.
 - Selecione como subpasta de `/introducao-eda-visualizacao/analises` e _create_.
 
 - Uma nova janela irá se abrir, mas não se preocupe, para abrir esse arquivo novamente basta utilizar `CTRL + O` e pesquisar esse arquivo na pasta de _instrucoes_.
+
+- Crie um novo arquivo RMarkdown (File > New File > R Markdown), dê um título da forma que desejar e o guarde dentro da pasta criada. Salve o arquivo usando `CTRL + S` (dê um nome antes).
