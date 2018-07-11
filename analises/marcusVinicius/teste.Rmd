@@ -1,0 +1,35 @@
+---
+title: "teste"
+author: "marcus-vinicius"
+date: "11 de julho de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+series <- read_csv("series_from_imdb.csv")
+
+''' 
+  Qual foi o melhor episodio da temporada
+  Qual a aprovação media da serie
+''' 
+
+series %>%
+  filter(series_name %in% "Stranger Things") %>%
+  summarise(media_user_rating =  mean(UserRating))
+
+series %>%
+  filter(series_name %in% "Stranger Things") %>%
+  arrange(UserRating) %>%
+  select(series_name, UserRating)
+
+unique(series$series_name)
+```
+
