@@ -2,7 +2,11 @@
 title: "Qual a melhor série da atualidade?"
 author: "Por: Paulo Vinícius Soares"
 date: "19 de maio de 2017"
-output: html_document
+output: 
+  html_document:
+        toc: true
+        toc_float: true
+        toc_depth: 4
 ---
 
 Primeiro, vamos importar as bibliotecas e configurar o RStudio.
@@ -39,12 +43,9 @@ Os dados estão agrupados da seguinte forma: Cada episódio da série tem uma no
 Por que não utilizar a média? Bem, a média é afetada por notas extremas, que podem distorcer onde a maioria das notas se concentram, de forma que podem alterar a percepção final do leitor dos dados. Nós estamos mais interessados na **constância das notas**, de forma que uma nota ou outra que sejam pontos fora da curva podem ser desconsiderados.
 
 
-A parte que daremos mais enfoque no nosso gráfico de caixa são os conceitos de **mediana**, **terceiro quartil** e **primeiro quartil**. O boxplot agrupa, dentro da caixinha, metade dos dados de forma ordenada. A mediana é o **valor do meio**, ou **valor central**, que separa os maiores valores dos menores, agrupando 50% da amostra acima e 50% da amostra abaixo de sua linha. O primeiro quartil agrupa 25% das notas abaixo e 75% das notas acima, enquanto o terceiro quartil agrupa 75% das observações abaixo e 25% acima.
-
-
 Vamos ordenar os boxplots abaixo de forma decrescente, da série com maior mediana para menor mediana.
 ```{r}
-dataSeriesBP <- ggplot(dataSeries, aes(x=reorder(series_name, -UserRating, FUN=median), y = UserRating)) + geom_boxplot(aes(color=series_name), show.legend=FALSE) +  stat_summary(aes(label=round(..y..,2)), fun.y=median, geom="text", size=2.5, vjust = -0.5) + ggtitle("\t\t\t\t\t Série mais bem avaliada (de acordo com dados do IMDB)") + xlab("Nome da série") + ylab("Nota dos episódios") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+dataSeriesBP <- ggplot(dataSeries, aes(x=reorder(series_name, -UserRating, FUN=median), y = UserRating)) + geom_boxplot(aes(color=series_name), show.legend=FALSE) +  stat_summary(aes(label=round(..y..,2)), fun.y=median, geom="text", size=2.5, vjust = -0.5) + ggtitle("\t\t\t\t\t Série melhor avaliada (de acordo com dados do IMDB)") + xlab("Nome da série") + ylab("Nota dos episódios") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 dataSeriesBP
 ```
 
