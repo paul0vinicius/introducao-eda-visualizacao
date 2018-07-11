@@ -1,0 +1,25 @@
+---
+title: "Análise de Séries"
+author: "Pedro Maia"
+output: html_document
+---
+
+## Perguntas
+
+* The Reinchenbach Fall tem a melhor média de Sherlock?
+* Qual o episódio mais polêmico de Black Mirror?
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+## Respondendo a primeira pergunta
+
+series_imdb %>%
+  filter(series_name %in% "Sherlock") %>%
+  arrange(desc(UserRating)) %>%
+  select(Episode, UserRating) %>%
+  head(1)
+```
