@@ -1,0 +1,99 @@
+---
+title: "Usando os verbos do dplyr"
+author: "Paulo Vinícius Soares"
+date: "11 de julho de 2018"
+output: 
+  html_document:
+        toc: true
+        toc_float: true
+        toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Vamos importar as nossas bibliotecas e nosso _dataset_.
+```{r}
+library(tidyverse)
+series_imdb <- read_csv("../database/series_from_imdb.csv")
+```
+
+
+# Introdução
+Existem 6 verbos principais do dplyr e estes são bastante parecidos com as operações de banco de dados. São estes:
+
+- `select()`
+- `filter()`
+- `arrange()`
+- `mutate()`
+- `summarise()`
+- `group_by()`
+
+# select()
+Seleciona um conjunto de colunas do _dataframe_. Por exemplo, caso queira selecionar apenas as colunas contendo as notas das séries e seus nomes posso fazer da seguinte forma:
+
+```{r}
+series_imdb %>%
+  select(series_name, UserRating)
+```
+
+Também é possível excluir uma coluna fazendo um - no nome da variável em questão:
+```{r}
+series_imdb %>%
+  select(-UserVotes)
+```
+
+# filter()
+Filtra as linhas dado determinado critério. Por exemplo, gostaria de ver apenas informações de Black Mirror:
+```{r}
+series_imdb %>%
+  filter(series_name %in% "Black Mirror")
+```
+
+Ou gostaria de ver apenas episódios com nota acima de 8:
+```{r}
+series_imdb %>%
+  filter(UserRating > 8)
+```
+
+# arrange()
+Ordena as linhas dado uma coluna. Caso quisesse ordenar pelas notas dos episódios:
+```{r}
+# Ordem crescente - do pior para o melhor
+series_imdb %>%
+  arrange(UserRating)
+```
+
+Do melhor para o pior ficaria assim:
+```{r}
+series_imdb %>%
+  arrange(desc(UserRating))
+```
+
+# mutate()
+Cria novas colunas e adiciona ao dataframe. Por exemplo, calcular a quantidade média de votos por episódios:
+```{r}
+series_imdb %>%
+  mutate(media_votos_por_ep = mean(UserVotes)) %>%
+  select(series_name, media_votos_por_ep)
+```
+
+# summarise()
+Cria um novo _dataframe_ com informações estatísticas sobre uma determinada coluna. Por exemplo, caso eu queira saber a quantidade média de votos por episódio, posso fazer:
+```{r}
+series_imdb %>%
+  summarise(media_votos_por_ep = mean(UserVotes))
+```
+
+# group_by()
+É uma das funções mais importantes do dplyr utilizando o conceito de dividir-aplicar-combinar. Geralmente é utilizado quando se quer dividir os dados dado determinado critério, aplicar uma função em seguida e combinar a saída. Por exemplo, vamos descobrir qual a avaliação média de cada série?
+
+```{r}
+series_imdb %>%
+  group_by(series_name) %>%
+  summarise(media_serie = mean(UserRating))
+```
+
+É isso, pessoal. Vamos praticar os conceitos aprendidos para responder as perguntas de vocês!
+
