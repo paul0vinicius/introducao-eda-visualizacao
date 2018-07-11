@@ -54,7 +54,7 @@ series_imdb %>%
 ```
 
 ## Criando vetores
-Para criar vetores e _dataframes_ a sintaxe de r é a seguinte:
+Para criar vetores a sintaxe de r é a seguinte:
 ```{r}
 vetor_int <- c(1,2,3)
 vetor_str <- c("a","b","c")
