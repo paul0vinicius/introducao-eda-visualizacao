@@ -16,10 +16,8 @@ library(readr)
 
 series <- read_csv("series_from_imdb.csv")
 
-''' 
-  Qual foi o melhor episodio da temporada
-  Qual a aprovação media da serie
-''' 
+# Qual foi o melhor episodio da temporada de Stranger Things
+# Qual a aprovação media da serie Stranger Things
 
 series %>%
   filter(series_name %in% "Stranger Things") %>%
@@ -28,8 +26,13 @@ series %>%
 series %>%
   filter(series_name %in% "Stranger Things") %>%
   arrange(UserRating) %>%
-  select(series_name, UserRating)
+  head(1) %>%
+  select(series_ep)
 
+series %>%
+  group_by(series_name) %>%
+  summarise(num_votos = )
+  
 unique(series$series_name)
 ```
 
