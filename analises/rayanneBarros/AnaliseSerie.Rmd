@@ -1,0 +1,15 @@
+---
+title: "AnaliseSerie"
+output: html_document
+---
+1) Qual a temporada com maior média?
+2) Qual o episodio mais detestado?
+
+```{r}
+series_imdb %>%
+    filter(series_name %in% "How I Met Your Mother") %>%
+    arrange(UserRating))%>%
+    select(Episode, UserRating) %>%
+    head(1)
+``` 
+
