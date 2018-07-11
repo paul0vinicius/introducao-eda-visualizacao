@@ -1,0 +1,41 @@
+---
+title: "Primeira Análise"
+author: "Matheus Alves"
+date: "11 de julho de 2018"
+output: html_document
+---
+
+```{r}
+
+# Importando as bibliotecas utilizadas
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+# Importanto a biblioteca através do readr
+series_imdb <- read_csv("../../database/series_from_imdb.csv")
+
+# Visualizando o dataset (3326 linhas e 18 colunas/variáveis)
+series_imdb %>% glimpse()
+
+# Exibir valores de uma determinada coluna/variável (series_name)
+unique(series_imdb $ series_name)
+
+# Qual a melhor temporada de Scandal?
+
+series_imdb %>%
+  filter(series_name %in% "Scandal") %>%
+  group_by(season) %>%
+  summarise(media_temporada = mean(UserRating))
+
+# Qual temporada de Scandal gerou opiniões mais divergentes?
+
+series_imdb %>%
+  filter(series_name %in% "Scandal") %>%
+  group_by(season) %>%
+  summarise(desvio_padrao_temporada = sd(UserRating))
+
+# Qual o melhor episódio de cada temporada de Scandal?
+# PREVISÃO: A medida que  série avança, a avaliação da série decai.
+
+```
