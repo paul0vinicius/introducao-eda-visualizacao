@@ -32,7 +32,15 @@ cd introducao-eda-visualizacao
 
 Ao terminar a tarefa, você deverá ter uma pasta com sua análise, um arquivo de extensão `.Rmd` e o que foi fornecido para você ao início do minicurso.
 
-Abra o site do GitHub no seu repositório _forkado_, clique em _New pull request_ e em seguida em _Create pull request_. Você pode escrever uma mensagem curta descrevendo sua análise - pode ser a série que você escolheu, as perguntas, dúvidas e até melhorias para o minicurso. **Coloque o link da sua análise do RPubs aqui também**.
+_Commite_ e _pushe_ todo o seu progresso fazendo:
+
+```
+git add .
+git commit <mensagem>
+git push
+```
+
+Após o _push_, abra o site do GitHub no seu repositório _forkado_, clique em _New pull request_ e em seguida em _Create pull request_. Você pode escrever uma mensagem curta descrevendo sua análise - pode ser a série que você escolheu, as perguntas, dúvidas e até melhorias para o minicurso. **Coloque o link da sua análise do RPubs aqui também**.
 
 Esses _pull requests_ ficarão disponíveis para mim, de forma que eu vou ler e responder as dúvidas. Ao aceitar o _pull request_ vocês serão notificados.
 
