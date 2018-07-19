@@ -1,5 +1,5 @@
 ---
-title: "Scandal "
+title: "Scandal: Polêmica além da ficção."
 author: "Matheus Alves"
 date: "18 de julho de 2018"
 output: 
@@ -8,13 +8,20 @@ output:
         toc_float: true
         toc_depth: 4
 ---
+<br/>
 
-Scandal foi uma série de televisão estadunidense de thriller político criada por Shonda Rhimes. A série se passa em Washington D.C e conta a história de Olivia Pope, ex-funcionária da Casa Branca e reponsável por uma empresa de gerenciamento de crises. No decorrer da série, a personagem principal salva as carreiras das principais figuras do centro do poder político estadunidense e, nesse percurso, se aproxima gradativamente do posto de pessoa mais poderosa do mundo.
+## Introdução
 
-MOTIVAÇÃO
+<p align = "justify">Scandal foi uma série de televisão estadunidense de thriller político criada por Shonda Rhimes. A série se passa em Washington D.C e conta a história de Olivia Pope, ex-funcionária da Casa Branca e reponsável por uma empresa de gerenciamento de crises. No decorrer da série, a personagem principal salva as carreiras das principais figuras do centro do poder político estadunidense e, nesse percurso, se aproxima gradativamente do posto de pessoa mais poderosa do mundo.</p><br/>
 
+## Motivação
 
-Importando bibliotecas a serem utilizadas:
+<p align = "justify">Durante sua exibição, Scandal manteve bons níveis de audiência e, em alguns momentos, ultrapassou os dez milhões de espectadores por episódio. Tamanho engajamento é, sem dúvidas, uma forte justificativa para análises sobre o comportamento do público em relaçação a essa série, mas não a única.</p>
+
+<p align = "justify">Ainda que se desenrole de maneira intimamente ligada ao Partido Republicano, Scandal aborda diversos temas tidos como progressistas durante sua história. Dentre esses temas, as questões de igualdade racial e de gênero são pontos importantes para compreender os personagens retratados. Entender como o público se comporta em relação a uma série que traz temas polêmicos para públicos conservadores foi a principal motivação para o desenvolvimento dessa análise.</p>
+
+<br>
+<p align = "justify">Importando bibliotecas a serem utilizadas:</p>
 
 ```{r}
 
@@ -24,32 +31,37 @@ library(ggplot2)
 
 ```
 
-
-Importando o banco de dados do IMDB contendo as avaliações referentes aos episódios de algumas séries da atualidade:
+<br>
+<p align = "justify">Importando o banco de dados do IMDB contendo as avaliações referentes aos episódios de algumas séries da atualidade:</p>
 
 ```{r}
 
 series_imdb <- read_csv("../../database/series_from_imdb.csv")
-
 series_imdb %>% glimpse()
+
 ```
 
-
-
-A título de curiosidade, as séries cujas avaliações de episódios estão presentes no banco de dados estão listadas abaixo:
+<br>
+<p align = "justify">A título de curiosidade, as séries cujas avaliações de episódios estão disponpiveis no banco de dados utilizado estão listadas abaixo:</p>
 
 ``` {r}
+
 unique(series_imdb $ series_name)
 
 ```
+<br/>
 
+## Análise
 
-# Qual a melhor temporada de Scandal? 
+<p align = "justify">Uma vez que Scandal não só traz temas polêmicos, mas também se baseia neles para contar sua história, espera-se que o público tenha opiniões muito distintas sobre os episódios. Nesse cenário, as avaliações dos usuários do IMDB para os episódios da série serão altamente divergentes.</p>
+
+<p align = "justify">Para verificar esse comportamento, foram utilizadas as avaliações do usuários para os episódios da primeira à sexta temporadas de Scandal. No gráfico abaixo, cada temporada da série foi identificada por uma cor diferente e seus para as avaliações de seus episódios foram plotados boxplots e scatterplots sobrepostos.</p>
 
 ```{r}
+
 scandalData <- series_imdb %>%
   filter(series_name %in% "Scandal")
 
-ggplot(scandalData, aes(x = as.character(season), y = UserRating)) + geom_boxplot(aes(color = as.character(season)), show.legend=FALSE)+ geom_jitter(aes(color = as.character(season)), show.legend=FALSE) + ggtitle("\t\t\t\t Avaliação dos episódios de Scandal") + xlab("Temporada") + ylab("Nota dos episódios") + theme(axis.text.x = element_text(angle = 0, hjust = 1))
+ggplot(scandalData, aes(x = as.character(season), y = UserRating)) + geom_boxplot(aes(color = as.character(season)), show.legend=FALSE)+ geom_jitter(aes(color = as.character(season)), show.legend=FALSE) + ggtitle("\t\t\t\t Avaliação dos episódios de Scandal") + xlab("Temporada") + ylab("Notas dos Episódios") + theme(axis.text.x = element_text(angle = 0, hjust = 1))
 
 ```
