@@ -1,0 +1,57 @@
+---
+title: "Meu 'olá, mundo!' das análises"
+author: "marcellaSiqueira"
+date: "11 de julho de 2018"
+output: 
+  html_document:
+        toc: true
+        toc_float: true
+        toc_depth: 4
+---
+# Uma análise simplezona: Orphan Black
+## Introdução: viciada em séries e agora, aparentemente, analista
+
+Orphan Black é uma série de temática um tanto diferente das quais estamos acostumados a ver e, por isso, sempre me perguntei se o público realmente avaliava bem a série (conferi durante todas as temporadas esperando pelas renovações). Acompanhei as quatro temporadas e sempre gostei muito da primeira delas, como também não me agradei tanto assim com a terceira. Buscando saber sobre quais seriam os "altos e baixos" da série na opinião do público e qual seria a melhor temporada, analisei a mediana dos votos de cada uma, na intenção de descobrir se minhas opiniões seguiam as gerais.
+
+## Pontapé inicial: importando o necessário
+O primeiro e o mais básico passo: importei as bibliotecas.
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+Tive acesso aos dados do IMDB de um total de 31 séries e acabei optando por analisar Orphan Black, considerando que é uma das minhas séries preferidas da lista. Tendo quatro temporadas e sempre dez episódios para cada uma delas, foi mais fácil lembrar quais fariam de determinada temporada a melhor ou a pior para mim. (Eu não conseguiria uma opinião tão definida para Friends, por exemplo.)
+
+```{r}
+# Usando a biblioteca readr
+series_imdb <- read_csv("../../database/series_from_imdb.csv")
+
+unique(series_imdb$series_name)
+```
+
+## Mão na massa: enfim gráficos
+
+A primeira análise realizada foi a partir do gráfico de linhas. A minha intenção era de ver, literalmente, os altos e baixos das pontuações. Para isso, filtrei Orphan Black das 31 séries, agrupei por temporada e verifiquei a mediana das notas de cada uma delas.
+
+
+```{r}
+series_imdb %>% # 
+  filter(series_name %in% "Orphan Black") %>%
+  group_by(season) %>%
+  summarise(mediana_votos = median(UserRating)) %>%
+  ggplot(aes(x = season, y = mediana_votos)) + geom_line()
+```
+
+Fiz a mesma análise, agora fazendo uso do boxplot, considerando que através dele obtenho muito mais detalhes a respeito das pontuações, já que ele apresenta os máximos, mínimos e me mostra a mediana de forma muito melhor que o meu gráfico anterior.
+
+```{r}
+series_imdb %>%
+  filter(series_name %in% "Orphan Black") %>%
+  ggplot(aes(x=season, y=UserRating)) + geom_boxplot(aes(color=as.character(season)), show.legend=FALSE)
+```
+
+## Resultados: eu não sou todo mundo
+
+A partir das duas formas de analisar os dados de Orphan Black, claramente a opinião da maioria não condiz com a minha no quesito de decidir qual a melhor temporada da série (talvez eu seja o outlier que podemos observar no boxplot da primeira temporada, vai saber). De forma geral, podemos perceber que as temporadas mais bem votadas foram a segunda e a quarta, em que ainda podemos observar - através do boxplot - que a quarta conseguiu pontuações melhores que a segunda. Há um certo declínio na pontuação da terceira temporada, como imaginei que teria, já que sendo sequência de uma boa temporada como a 2, sua história não acompanhou o nível dos episódios anteriores. Infelizmente, a temporada que previ ser a mais bem foi votada foi, na verdade, a pior. Conclusão? É, eu não sou todo mundo.
