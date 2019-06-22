@@ -1,0 +1,45 @@
+---
+title: "O declínio na qualidade de Arrow a partir da 2ª temporada"
+author: "Pedro Maia"
+output: 
+  html_document:
+        toc: true
+        toc_float: true
+        toc_depth: 4
+---
+
+```{r}
+
+library(magrittr)
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+```
+
+```{r}
+series_imdb <- read_csv("../../database/series_from_imdb.csv")
+```
+
+
+Não é uma verdade muito discutida que desde a 3ª temporada houve uma queda na qualidade de Arrow. Dentre os _vários_ motivos, temos os novos antagonistas, saido do lendário Slade Wilson direto para o ~~supostamente~~ lendário Ra's al Ghul, chegando no fundo do poço de lázaro com Damien Dhark. Também tiveram uns personagens que ajudaram na geração de desinteresse, sendo a líder oficial a senhorita Felicity Smoak que, não satisfeita em deixar apenas essa temporada mais chata, ela conseguiu maximizar seu feito na 4ª temporada. 
+
+Com dados recolhidos do IMDb, contendo notas dos usuários para cada episódio dessa série tão amada e odiada e várias outras séries, vamos analisar para
+
+
+```{r}
+
+series_imdb %>%
+  filter(series_name %in% "Arrow", season %in% c(2,3)) %>%
+  ggplot(aes(x=season_ep, y=UserRating, color=as.character(season))) + geom_line() +
+  geom_point(shape=16) + 
+  scale_x_continuous(breaks=seq(1, 23, 1)) +
+  theme(plot.title=element_text(size=13, face="bold", color="darkgreen")) + 
+  labs(title = "Distribuição de notas dos episódios da 2ª e 3ª temporada de Arrow\n", x = "Episódio", y = "Nota dos usuários", color = "Temporada")
+
+```
+
+
+
+
+
